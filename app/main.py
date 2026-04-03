@@ -1,20 +1,29 @@
 from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware  # ✅ ADD THIS
+
 from app.db.base import Base
 from app.db.session import engine
-from app.api import ai
-from app.api import doctor
-from app.api import slot
-from app.api import appointment
-
-
-# 👉 IMPORT ROUTER
-from app.api import auth
+from app.api import ai, doctor, slot, appointment, auth
 
 app = FastAPI()
 
+# ✅ ADD CORS HERE (VERY IMPORTANT POSITION)
+origins = [
+    "http://localhost:3000",  # frontend
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,   # ❗ NOT "*"
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+# DB
 Base.metadata.create_all(bind=engine)
 
-# 👉 INCLUDE ROUTER
+# Routers
 app.include_router(auth.router, prefix="/auth", tags=["Auth"])
 app.include_router(ai.router, prefix="/ai", tags=["AI"])
 app.include_router(doctor.router, prefix="/doctors", tags=["Doctors"])

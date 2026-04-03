@@ -1,5 +1,8 @@
 import os
+from dotenv import load_dotenv   # 👈 ADD THIS
 from twilio.rest import Client
+
+load_dotenv()   # 👈 VERY IMPORTANT (LOADS .env)
 
 ACCOUNT_SID = os.getenv("TWILIO_ACCOUNT_SID")
 AUTH_TOKEN = os.getenv("TWILIO_AUTH_TOKEN")
