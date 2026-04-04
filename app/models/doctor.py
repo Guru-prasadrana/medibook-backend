@@ -10,3 +10,4 @@ class Doctor(Base):
     experience = Column(Integer)
     rating = Column(Float)
     consultation_fee = Column(Integer)
+    location = Column(String)
