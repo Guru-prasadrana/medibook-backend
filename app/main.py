@@ -9,7 +9,8 @@ app = FastAPI()
 
 # ✅ ADD CORS HERE (VERY IMPORTANT POSITION)
 origins = [
-    "http://localhost:3000",  # frontend
+    "http://localhost:3000",
+    "https://medibook-azure-omega.vercel.app",  # ✅ ADD THIS
 ]
 
 app.add_middleware(
